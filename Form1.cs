@@ -48,7 +48,7 @@ namespace Conveter
                     values.Add(data);
                }
 
-               string filename = "BhavCopyAMI" + DateTime.Now.ToString("dd-mm-yyyy") + ".txt";
+               string filename= DateTime.Now.ToString("ddmmyyyy") + ".txt";
                using (TextWriter tw = new StreamWriter(filename))
                {
                     foreach (String s in values)
