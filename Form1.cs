@@ -25,18 +25,18 @@ namespace Conveter
 
           }
 
-          string currentdate = string.Empty;
+          string currentdatebhav = string.Empty;
+          string currentdateindex = string.Empty;
 
-       
 
 
           void converttotxt()
           {
                var tlistFiltered = items.Where(item => item.SERIES == "EQ").ToList();
 
-               string advance = "_ADVANCE," + currentdate + ",630,630,630,630,0,0";
-               string decline = "_DECLINE," + currentdate + ",630,630,630,630,0,0";
-               string unchanged = "_UNCHANGED," + currentdate + ",630,630,630,630,0,0";
+               string advance = "_ADVANCE," + currentdatebhav + ",630,630,630,630,0,0";
+               string decline = "_DECLINE," + currentdatebhav + ",630,630,630,630,0,0";
+               string unchanged = "_UNCHANGED," + currentdatebhav + ",630,630,630,630,0,0";
 
                List<string> values = new List<string>();
 
@@ -50,7 +50,7 @@ namespace Conveter
                     values.Add(data);
                }
 
-               string filename= DateTime.Now.ToString("ddmmyyyy") + ".txt";
+               string filename= currentdatebhav + ".txt";
                using (TextWriter tw = new StreamWriter(filename))
                {
                     foreach (String s in values)
@@ -80,7 +80,7 @@ namespace Conveter
                     values.Add(data);
                }
 
-               string filename ="Index"+ DateTime.Now.ToString("ddmmyyyy") + ".txt";
+               string filename ="Index"+ currentdateindex + ".txt";
                using (TextWriter tw = new StreamWriter(filename))
                {
                     foreach (String s in values)
@@ -181,7 +181,7 @@ namespace Conveter
                                    TOTTRDQTY = parser["TOTTRDQTY"],
                                    extrafield = "0"
                               };
-                              currentdate = item.TIMESTAMP;
+                              currentdatebhav = item.TIMESTAMP;
                               items.Add(item);
                          }
 
@@ -239,7 +239,7 @@ namespace Conveter
                                    Volume = parser["Volume"],
                                  
                               };
-                              currentdate = item.Index_Date;
+                              currentdateindex = item.Index_Date;
                               indexitems.Add(item);
                          }
 
