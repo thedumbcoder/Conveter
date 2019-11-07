@@ -18,4 +18,19 @@ namespace Conveter
           public string extrafield;
           public string SERIES;
      }
+
+     public class IndexItem
+     {
+          public string Index_Name;
+          public string Index_Date;
+          public string Open_Index_Value;
+          public string High_Index_Value;
+          public string Low_Index_Value;
+          public string Closing_Index_Value;
+          public string Volume;
+         
+
+
+
+     }
 }

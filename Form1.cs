@@ -16,10 +16,12 @@ namespace Conveter
      public partial class Form1 : Form
      {
           List<ListItem> items = new List<ListItem>();
+          List<IndexItem> indexitems = new List<IndexItem>();
           public Form1()
           {
                InitializeComponent();
                button2.Enabled = false;
+               button3.Enabled = false;
 
           }
 
@@ -60,7 +62,35 @@ namespace Conveter
 
           }
 
+          void converttotxt2()
+          {
 
+
+               string header = "Index Name,Index Date,Open Index Value,High Index Value,Low Index Value,Closing Index Value,Volume";
+ 
+
+               List<string> values = new List<string>();
+
+               values.Add(header);
+             
+               foreach (IndexItem ITEM in indexitems)
+               {
+
+                    string data = ITEM.Index_Name + "," + ITEM.Index_Date + "," + ITEM.Open_Index_Value + "," + ITEM.High_Index_Value + "," + ITEM.Low_Index_Value + "," + ITEM.Closing_Index_Value + "," + ITEM.Volume ;
+                    values.Add(data);
+               }
+
+               string filename ="Index"+ DateTime.Now.ToString("ddmmyyyy") + ".txt";
+               using (TextWriter tw = new StreamWriter(filename))
+               {
+                    foreach (String s in values)
+                         tw.WriteLine(s);
+               }
+
+               MessageBox.Show("Conversion Done");
+               label2.Text = "Converted File Save at location: " + Directory.GetCurrentDirectory() + "/" + filename;
+
+          }
 
           private void Form1_Load(object sender, EventArgs e)
           {
@@ -167,6 +197,90 @@ namespace Conveter
 
 
           }
+
+          private void button3_Click(object sender, EventArgs e)
+          {
+               if (textBox1.Text != string.Empty)
+               {
+                    string parseDate(string indate)
+                    {
+                         DateTime date1 = Convert.ToDateTime(indate);
+                         var month = date1.ToString("MMMM");
+                         var year = date1.ToString("yyyy");
+                         var date = date1.ToString("dd");
+
+                         string desiredMonth = month;
+                         string[] MonthNames = CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+                         int monthIndex = Array.IndexOf(MonthNames, desiredMonth) + 1;
+                         return year + monthIndex + date;
+
+                    }
+
+                    using (GenericParser parser = new GenericParser())
+                    {
+                         parser.SetDataSource(textBox1.Text);
+
+                         parser.FirstRowHasHeader = true;
+                         parser.SkipStartingDataRows = 0;
+                         parser.MaxBufferSize = 4096;
+                         parser.TextQualifier = '\"';
+
+                         while (parser.Read())
+                         {
+
+                              IndexItem item = new IndexItem()
+                              {
+                                   Index_Name = parser["Index Name"],
+                                   Index_Date = parseDate(parser["Index Date"]),
+                                   Open_Index_Value = parser["Open Index Value"],
+                                   High_Index_Value = parser["High Index Value"],
+                                   Low_Index_Value = parser["Low Index Value"],
+                                   Closing_Index_Value = parser["Closing Index Value"],
+                                   Volume = parser["Volume"],
+                                 
+                              };
+                              currentdate = item.Index_Date;
+                              indexitems.Add(item);
+                         }
+
+                         converttotxt2();
+                    }
+               }
+
+               else
+               {
+                    MessageBox.Show("Please select Index File");
+               }
+          }
+
+          private void button4_Click(object sender, EventArgs e)
+          {
+               OpenFileDialog openFileDialog2 = new OpenFileDialog
+               {
+
+                    Title = "Browse Index Copy",
+
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+
+                    DefaultExt = "csv",
+                    Filter = "csv files (*.csv)|*.csv",
+                    FilterIndex = 2,
+                    RestoreDirectory = true,
+
+                    ReadOnlyChecked = true,
+                    ShowReadOnly = true
+               };
+
+               if (openFileDialog2.ShowDialog() == DialogResult.OK)
+               {
+                    textBox1.Text = openFileDialog2.FileName;
+                    button3.Enabled = true;
+               }
+
+          }
+
+       
      }
      }
 
