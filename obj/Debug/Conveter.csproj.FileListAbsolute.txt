@@ -2,7 +2,6 @@ C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\bin\Debug\copy.csv
 C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\bin\Debug\Conveter.exe.config
 C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\bin\Debug\Conveter.exe
 C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\bin\Debug\Conveter.pdb
-C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\bin\Debug\GenericParsing.dll
 C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\bin\Debug\GenericParsing.xml
 C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\obj\Debug\Conveter.csprojAssemblyReference.cache
 C:\Users\abhishek.dutta\source\repos\Conveter\Conveter\obj\Debug\Conveter.Form1.resources
