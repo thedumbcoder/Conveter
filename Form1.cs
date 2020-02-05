@@ -153,10 +153,13 @@ namespace Conveter
                          string desiredMonth = month;
                          string[] MonthNames = CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
                   
-                    int monthIndex = Array.IndexOf(MonthNames, desiredMonth) + 1;
-                    double digits = Math.Ceiling(Math.Log10(monthIndex)+1);
+                  int monthIndex = Array.IndexOf(MonthNames, desiredMonth) + 1;
 
-                    if(digits>1)
+                  
+                  int digits = Convert.ToString(monthIndex).Length;
+                   
+
+                    if (digits>1)
                     {
                         return year + monthIndex + date;
                     }
@@ -169,6 +172,8 @@ namespace Conveter
 
                 }
 
+
+               
                     using (GenericParser parser = new GenericParser())
                     {
                          parser.SetDataSource(txtbhavcopy.Text);
@@ -181,7 +186,10 @@ namespace Conveter
                          while (parser.Read())
                          {
 
-                              ListItem item = new ListItem()
+                        var x = parseDate(parser["TIMESTAMP"]);
+
+
+                        ListItem item = new ListItem()
                               {
                                    SYMBOL = parser["SYMBOL"],
                                    TIMESTAMP = parseDate(parser["TIMESTAMP"]),
@@ -227,7 +235,7 @@ namespace Conveter
 
 
                     int monthIndex = Array.IndexOf(MonthNames, desiredMonth) + 1;
-                    double digits = Math.Ceiling(Math.Log10(monthIndex) + 1);
+                    int digits = Convert.ToString(monthIndex).Length;
 
                     if (digits > 1)
                     {
